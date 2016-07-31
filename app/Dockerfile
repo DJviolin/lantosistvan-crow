@@ -23,19 +23,17 @@ RUN mkdir -p /root/www/app/bin /root/www/app/src/include/{amalgamate,boost,mstch
     && buildDeps='\
         ca-certificates \
         curl \
-        make \
-        wget' \
+        make' \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         $buildDeps \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         libtcmalloc-minimal4 \
     && ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so
-RUN wget -O - http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
-    #&& curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+RUN curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && clangDeps='\
         clang-4.0 \
         lldb-4.0' \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends --no-install-suggests \
         $clangDeps \
     && rm -rf /var/lib/apt/lists/* \
 
