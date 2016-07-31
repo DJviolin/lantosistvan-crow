@@ -18,7 +18,7 @@ RUN echo "\
     deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.8 main\n\
     # 3.9\n\
     deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.9 main\n\
-    deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.9 main" > /etc/apt/sources.list.d/llvm \
+    deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.9 main" > /etc/apt/sources.list.d/llvm.list \
     mkdir -p /root/www/app/bin /root/www/app/src/include/{amalgamate,boost,mstch} \
     && buildDeps='\
         ca-certificates \
@@ -31,8 +31,8 @@ RUN echo "\
     && ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so \
     && curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && clangDeps='\
-        clang-3.9 \
-        lldb-3.9' \
+        clang-4.0 \
+        lldb-4.0' \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         $clangDeps \
     && rm -rf /var/lib/apt/lists/* \
