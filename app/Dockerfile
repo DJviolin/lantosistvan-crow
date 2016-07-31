@@ -38,18 +38,21 @@ RUN curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE" -o "$BOOST_ARCHIVE" \
+    && mkdir -p $HOME/boost \
     && tar -xzf "$BOOST_ARCHIVE" -C $HOME/boost --strip-components=1 \
     && cp $HOME/boost/boost/* /root/www/app/src/include/boost \
     && ls -al /root/www/app/src/include/boost \
     && rm "$BOOST_ARCHIVE"* $HOME/boost
 
 RUN curl -fSL "https://github.com/ipkn/crow/archive/master.tar.gz" -o "crow.tar.gz" \
+    && mkdir -p $HOME/crow \
     && tar -xzf "crow.tar.gz" -C $HOME/crow --strip-components=1 \
     && cp $HOME/crow/amalgamate/* /root/www/app/src/include/amalgamate \
     && ls -al /root/www/app/src/include/amalgamate \
     && rm "crow.tar.gz"* $HOME/crow /root/www/app/src/include/amalgamate/merge_all.py
 
 RUN curl -fSL "https://github.com/no1msd/mstch/archive/master.zip" -o "mstch.tar.gz" \
+    && mkdir -p $HOME/mstch \
     && tar -xzf "mstch.tar.gz" -C $HOME/mstch --strip-components=1 \
     && cp $HOME/mstch/include/mstch/* /root/www/app/src/include/mstch \
     && ls -al /root/www/app/src/include/mstch \
