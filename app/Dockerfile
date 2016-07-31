@@ -35,21 +35,21 @@ RUN curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
         lldb-4.0' \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends --no-install-suggests \
         $clangDeps \
-    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /var/lib/apt/lists/*
 
-    && curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE" -o "$BOOST_ARCHIVE" \
-    && tar -xzf "$BOOST_ARCHIVE" boost -C /root/www/app/src/include/boost --strip-components=1 \
+RUN curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE" -o "$BOOST_ARCHIVE" \
+    && tar -xzf "$BOOST_ARCHIVE" boost/* -C /root/www/app/src/include/boost --strip-components=1 \
     && ls -al /root/www/app/src/include/boost \
     && rm "$BOOST_ARCHIVE"* \
 
     && curl -fSL "https://github.com/ipkn/crow/archive/master.tar.gz" -o "crow.tar.gz" \
-    && tar -xzf "crow.tar.gz" amalgamate -C /root/www/app/src/include/amalgamate --strip-components=1 \
+    && tar -xzf "crow.tar.gz" amalgamate/* -C /root/www/app/src/include/amalgamate --strip-components=1 \
     && ls -al /root/www/app/src/include/amalgamate \
     && rm "crow.tar.gz"* \
     && rm /root/www/app/src/include/amalgamate/merge_all.py \
 
     && curl -fSL "https://github.com/no1msd/mstch/archive/master.zip" -o "mstch.tar.gz" \
-    && tar -xzf "mstch.tar.gz" include/mstch -C /root/www/app/src/include/mstch --strip-components=1 \
+    && tar -xzf "mstch.tar.gz" include/mstch/* -C /root/www/app/src/include/mstch --strip-components=1 \
     && ls -al /root/www/app/src/include/mstch \
     && rm "mstch.tar.gz"* \
 
