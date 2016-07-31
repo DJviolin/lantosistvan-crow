@@ -28,8 +28,8 @@ RUN mkdir -p /root/www/app/bin /root/www/app/src/include/{amalgamate,boost,mstch
         $buildDeps \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         libtcmalloc-minimal4 \
-    && ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so \
-    && curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+    && ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so
+RUN curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && clangDeps='\
         clang-4.0 \
         lldb-4.0' \
