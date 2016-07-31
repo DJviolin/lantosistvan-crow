@@ -1,4 +1,4 @@
-FROM lantosistvan_base:1.0.0
+FROM crow_base:1.0.0
 MAINTAINER Istvan Lantos <kerozin.joe@gmail.com>
 LABEL com.lantosistvan.version="1.0.0" \
       com.lantosistvan.environment="production" \
