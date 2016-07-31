@@ -38,7 +38,7 @@ RUN curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE" -o "$BOOST_ARCHIVE"
-RUN tar -xzf "$BOOST_ARCHIVE" --strip-components=1 boost/* -C /root/www/app/src/include/boost \
+RUN tar -xzf "$BOOST_ARCHIVE" --strip-components=1 --extract boost/* -C /root/www/app/src/include/boost \
     && ls -al /root/www/app/src/include/boost \
     && rm "$BOOST_ARCHIVE"* \
 
