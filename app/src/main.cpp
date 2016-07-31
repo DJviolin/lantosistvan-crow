@@ -1,6 +1,6 @@
 #include <amalgamate/crow_all.h>
 
-#define NOGDI  // Windows
+//#define NOGDI  // Windows
 
 int main() {
   crow::SimpleApp app;
