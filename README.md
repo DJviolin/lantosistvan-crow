@@ -25,5 +25,5 @@ $ curl -H 'Cache-Control: no-cache' -L https://raw.github.com/DJviolin/lantosist
 Run docker-compose with:
 
 ```shell
-$ docker-compose --file $HOME/www/lantosistvan/docker/docker-compose.yml build
+$ docker-compose --file $HOME/www/crow/docker/docker-compose.yml build
 ```
