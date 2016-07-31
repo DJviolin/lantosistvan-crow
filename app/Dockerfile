@@ -10,7 +10,8 @@ ENV BOOST_VERSION="1.61.0" \
 COPY . /root/www/app
 
 # gcc libc6-dev
-RUN echo "\
+RUN mkdir -p /root/www/app/bin /root/www/app/src/include/{amalgamate,boost,mstch} \
+    && echo "\
     deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie main\n\
     deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie main\n\
     # 3.8\n\
@@ -19,7 +20,6 @@ RUN echo "\
     # 3.9\n\
     deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.9 main\n\
     deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.9 main" > /etc/apt/sources.list.d/llvm.list \
-    mkdir -p /root/www/app/bin /root/www/app/src/include/{amalgamate,boost,mstch} \
     && buildDeps='\
         ca-certificates \
         curl \
