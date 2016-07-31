@@ -9,13 +9,13 @@ services:
     network_mode: "none"
   app:
     build: ./app
-    image: crow_node:1.0.0
+    image: crow_app:1.0.0
     container_name: crow_app
     depends_on:
       - base
-    command: [sh, -c, npm install --only=production && npm start]
-    volumes:
-      - "../app:/root/www/lantosistvan:rw"
+    command: [sh, -c, /root/www/app/bin/main]
+    #volumes:
+    #  - "../app:/root/www/lantosistvan:rw"
     networks:
       crow_back:
         ipv4_address: 172.16.238.11

@@ -57,6 +57,7 @@ RUN echo "\
 
     && cd /root/www/app
 RUN make \
+    && chmod +x /root/www/app/bin/main
 
     && apt-get purge -y --auto-remove \
         $buildDeps \
