@@ -26,12 +26,12 @@ RUN echo "\
         make \
         \
         libc6-dev' \
-    && clangDeps='\
-        clang-4.0 \
-        lldb-4.0' \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         $buildDeps \
-    && curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+    && curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+RUN clangDeps='\
+        clang-4.0 \
+        lldb-4.0' \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         $clangDeps \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
