@@ -9,16 +9,7 @@ ENV BOOST_VERSION="1.61.0" \
 
 COPY . /root/www/app
 
-RUN echo "\
-    deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie main\n\
-    deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie main\n\
-    # 3.8\n\
-    deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.8 main\n\
-    deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.8 main\n\
-    # 3.9\n\
-    deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.9 main\n\
-    deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.9 main" > /etc/apt/sources.list.d/llvm \
-    mkdir -p /root/www/app/bin /root/www/app/src/include/{amalgamate,boost,mstch} \
+RUN mkdir -p /root/www/app/bin /root/www/app/src/include/{amalgamate,boost,mstch} \
     && buildDeps='\
         ca-certificates \
         curl \
@@ -32,7 +23,19 @@ RUN echo "\
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         libtcmalloc-minimal4 \
     && ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so
-RUN clangDeps='\
+RUN echo "\
+    deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie main\n\
+    deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie main\n\
+    # 3.8\n\
+    deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.8 main\n\
+    deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.8 main\n\
+    # 3.9\n\
+    deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.9 main\n\
+    deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.9 main\n\
+    # 4.0\n\
+    deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie-4.0 main\n\
+    deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie-4.0 main" > /etc/apt/sources.list.d/llvm \
+    && clangDeps='\
         clang-4.0 \
         lldb-4.0' \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
