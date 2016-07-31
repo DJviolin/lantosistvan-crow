@@ -55,7 +55,7 @@ RUN curl -fSL "https://github.com/no1msd/mstch/archive/master.zip" -o "mstch.tar
     && tar -xzf "mstch.tar.gz" -C $HOME/mstch --strip-components=1 \
     && cp -ar $HOME/mstch/include/mstch/ /root/www/app/src/include \
     && ls -al /root/www/app/src/include/mstch \
-    && rm -rf "mstch.tar.gz"* $HOME/mstch \
+    && rm -rf "mstch.tar.gz"* $HOME/mstch
 
 RUN cd /root/www/app \
     && mkdir -p /root/www/app/bin \
