@@ -58,7 +58,7 @@ clean:
   mkdir -p ./bin
   rm -f bin/*
 
-cpp: $(BIN)
+cpp: \$(BIN)
 \$(BIN): bin/%: src/%.cpp
   \$(CC) \$(CFLAGS) \$(BINARY) \$(SILENCE) \$(OPTIMIZE) \$(BOOST) \$^ -o \$@
 EOF
