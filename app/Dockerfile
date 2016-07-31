@@ -10,17 +10,6 @@ ENV BOOST_VERSION="1.61.0" \
 COPY . /root/www/app
 
 # gcc libc6-dev
-RUN mkdir -p /root/www/app/bin /root/www/app/src/include/{amalgamate,boost,mstch} \
-    && buildDeps='\
-        ca-certificates \
-        curl \
-        make' \
-    && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
-        $buildDeps \
-    && curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
-        libtcmalloc-minimal4 \
-    && ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so
 RUN echo "\
     deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie main\n\
     deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie main\n\
@@ -29,14 +18,22 @@ RUN echo "\
     deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.8 main\n\
     # 3.9\n\
     deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.9 main\n\
-    deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.9 main\n\
-    # 4.0\n\
-    deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie-4.0 main\n\
-    deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie-4.0 main" > /etc/apt/sources.list.d/llvm \
-    && clangDeps='\
-        clang-4.0 \
-        lldb-4.0' \
+    deb-src http://apt.llvm.org/jessie/ llvm-toolchain-jessie-3.9 main" > /etc/apt/sources.list.d/llvm \
+    mkdir -p /root/www/app/bin /root/www/app/src/include/{amalgamate,boost,mstch} \
+    && buildDeps='\
+        ca-certificates \
+        curl \
+        make' \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
+        $buildDeps \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
+        libtcmalloc-minimal4 \
+    && ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so \
+    && curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+    && clangDeps='\
+        clang-3.9 \
+        lldb-3.9' \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         $clangDeps \
     && rm -rf /var/lib/apt/lists/* \
 
