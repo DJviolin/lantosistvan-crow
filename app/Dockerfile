@@ -37,24 +37,26 @@ RUN curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
         $clangDeps \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE" -o "$BOOST_ARCHIVE"
-RUN tar -xzf "$BOOST_ARCHIVE" --strip-components=1 --extract boost -C /root/www/app/src/include/boost \
+RUN curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE" -o "$BOOST_ARCHIVE" \
+    && tar -xzf "$BOOST_ARCHIVE" -C $HOME/boost --strip-components=1 \
+    && cp $HOME/boost/boost/* /root/www/app/src/include/boost \
     && ls -al /root/www/app/src/include/boost \
-    && rm "$BOOST_ARCHIVE"*
+    && rm "$BOOST_ARCHIVE"* $HOME/boost
 
 RUN curl -fSL "https://github.com/ipkn/crow/archive/master.tar.gz" -o "crow.tar.gz" \
-    && tar -xzf "crow.tar.gz" amalgamate/* -C /root/www/app/src/include/amalgamate --strip-components=1 \
+    && tar -xzf "crow.tar.gz" -C $HOME/crow --strip-components=1 \
+    && cp $HOME/crow/amalgamate/* /root/www/app/src/include/amalgamate \
     && ls -al /root/www/app/src/include/amalgamate \
-    && rm "crow.tar.gz"* \
-    && rm /root/www/app/src/include/amalgamate/merge_all.py \
+    && rm "crow.tar.gz"* $HOME/crow /root/www/app/src/include/amalgamate/merge_all.py
 
-    && curl -fSL "https://github.com/no1msd/mstch/archive/master.zip" -o "mstch.tar.gz" \
-    && tar -xzf "mstch.tar.gz" include/mstch/* -C /root/www/app/src/include/mstch --strip-components=1 \
+RUN curl -fSL "https://github.com/no1msd/mstch/archive/master.zip" -o "mstch.tar.gz" \
+    && tar -xzf "mstch.tar.gz" -C $HOME/mstch --strip-components=1 \
+    && cp $HOME/mstch/include/mstch/* /root/www/app/src/include/mstch \
     && ls -al /root/www/app/src/include/mstch \
-    && rm "mstch.tar.gz"* \
+    && rm "mstch.tar.gz"* $HOME/mstch \
 
-    && cd /root/www/app
-RUN make \
+RUN cd /root/www/app \
+    && make \
     && chmod +x /root/www/app/bin/main
 
     && apt-get purge -y --auto-remove \
