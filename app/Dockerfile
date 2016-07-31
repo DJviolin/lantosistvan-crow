@@ -28,15 +28,15 @@ RUN echo "\
         libc6-dev' \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         $buildDeps \
-    && curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+    && curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
+        libtcmalloc-minimal4 \
+    && ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so
 RUN clangDeps='\
         clang-4.0 \
         lldb-4.0' \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         $clangDeps \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
-        libtcmalloc-minimal4 \
-    && ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so \
     && rm -rf /var/lib/apt/lists/* \
 
     && curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE" -o "$BOOST_ARCHIVE" \
