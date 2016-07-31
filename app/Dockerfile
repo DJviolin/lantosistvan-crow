@@ -50,12 +50,12 @@ RUN curl -fSL "https://github.com/ipkn/crow/archive/master.tar.gz" -o "crow.tar.
     && ls -al /root/www/app/src/include/amalgamate \
     && rm -rf "crow.tar.gz"* $HOME/crow /root/www/app/src/include/amalgamate/merge_all.py
 
-RUN curl -fSL "https://github.com/no1msd/mstch/archive/master.zip" -o "mstch.tar.gz" \
-    && mkdir -p $HOME/mstch /root/www/app/src/include/mstch \
-    && tar -xzf "mstch.tar.gz" -C $HOME/mstch --strip-components=1 \
-    && cp -ar $HOME/mstch/include/mstch/ /root/www/app/src/include \
-    && ls -al /root/www/app/src/include/mstch \
-    && rm -rf "mstch.tar.gz"* $HOME/mstch
+RUN curl -fSL "https://github.com/no1msd/mstch/archive/master.zip" -o "mstch.tar.gz"
+RUN mkdir -p $HOME/mstch /root/www/app/src/include/mstch
+RUN tar -xzf "mstch.tar.gz" -C $HOME/mstch --strip-components=1
+RUN cp -ar $HOME/mstch/include/mstch/ /root/www/app/src/include
+RUN ls -al /root/www/app/src/include/mstch
+RUN rm -rf "mstch.tar.gz"* $HOME/mstch
 
 RUN cd /root/www/app \
     && mkdir -p /root/www/app/bin \
