@@ -9,14 +9,12 @@ ENV BOOST_VERSION="1.61.0" \
 
 COPY . /root/www/app
 
+# gcc libc6-dev
 RUN mkdir -p /root/www/app/bin /root/www/app/src/include/{amalgamate,boost,mstch} \
     && buildDeps='\
         ca-certificates \
         curl \
-        gcc \
-        make \
-        \
-        libc6-dev' \
+        make' \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         $buildDeps \
     && curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
