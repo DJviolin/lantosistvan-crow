@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 # set -e making the commands if they were like &&
 # set -x putting + before every line
