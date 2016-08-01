@@ -1,4 +1,4 @@
-CC := clang++ -v
+CC := clang++
 #CFLAGS := -std=c++1z
 CFLAGS := -g -Wall -std=c++1z -Isrc/include
 BINARY := -Wextra -Wformat -Werror -pedantic
