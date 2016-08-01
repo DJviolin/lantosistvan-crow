@@ -64,7 +64,8 @@ COPY . /root/www/app
 RUN mkdir -p /root/www/app/bin \
     && mkdir -p /root/www/app/src/include  \
     && cp -ar $HOME/boost/boost/ /root/www/app/src/include \
-    && cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
+    #&& cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
+    && cp -ar $HOME/crow/include/ /root/www/app/src/include \
     && cp -ar $HOME/mstch/include/mstch/ /root/www/app/src/include \
     && cd /root/www/app \
     && make \
