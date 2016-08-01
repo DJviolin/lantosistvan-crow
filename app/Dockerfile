@@ -32,7 +32,7 @@ RUN echo "\
     && clangDeps='\
         clang-4.0 \
         lldb-4.0' \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends --no-install-suggests \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes \
         $clangDeps \
     && rm -rf /var/lib/apt/lists/* \
 
