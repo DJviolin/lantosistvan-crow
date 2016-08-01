@@ -69,7 +69,8 @@ RUN mkdir -p /root/www/app/bin \
     && cp -a $HOME/boost/boost/* /root/www/app/src/include/boost \
     #&& cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
     && cp -a $HOME/crow/include/* /root/www/app/src/include/crow \
-    && cp -a $HOME/mstch/include/mstch/* /root/www/app/src/include/mstch \
+    && cp -a $HOME/mstch/include/mstch/* /root/www/app/src/include/mstch
+RUN ls -al /root/www/app/src/include/boost \
     && cd /root/www/app \
     && make \
     && chmod +x /root/www/app/bin/main
