@@ -42,29 +42,28 @@ RUN echo "\
     && mkdir -p $HOME/boost /root/www/app/src/include/boost \
     && tar -xzf "$BOOST_ARCHIVE" -C $HOME/boost --strip-components=1 \
     && cp -ar $HOME/boost/boost/ /root/www/app/src/include \
-    && ls -al /root/www/app/src/include/boost \
     && rm -rf "$BOOST_ARCHIVE"* $HOME/boost \
+    && ls -al /root/www/app/src/include/boost \
 
     && curl -fSL "https://github.com/ipkn/crow/archive/master.tar.gz" -o "crow.tar.gz" \
     && mkdir -p $HOME/crow /root/www/app/src/include/amalgamate \
     && tar -xzf "crow.tar.gz" -C $HOME/crow --strip-components=1 \
     && cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
-    && ls -al /root/www/app/src/include/amalgamate \
     && rm -rf "crow.tar.gz"* $HOME/crow /root/www/app/src/include/amalgamate/merge_all.py \
+    && ls -al /root/www/app/src/include/amalgamate \
 
     && curl -fSL "https://github.com/no1msd/mstch/archive/master.tar.gz" -o "mstch.tar.gz" \
     && mkdir -p $HOME/mstch /root/www/app/src/include/mstch \
     && tar -xzf "mstch.tar.gz" -C $HOME/mstch --strip-components=1 \
     && cp -ar $HOME/mstch/include/mstch/ /root/www/app/src/include \
-    && ls -al /root/www/app/src/include/mstch \
     && rm -rf "mstch.tar.gz"* $HOME/mstch \
-
-    && cd /root/www/app \
-    && mkdir -p /root/www/app/bin
+    && ls -al /root/www/app/src/include/mstch
 
 COPY . /root/www/app
 
-RUN make \
+RUN mkdir -p /root/www/app/bin \
+    && cd /root/www/app \
+    && make \
     && chmod +x /root/www/app/bin/main
 
     && apt-get purge -y --auto-remove \
