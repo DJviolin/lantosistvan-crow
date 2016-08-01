@@ -84,8 +84,10 @@ RUN mkdir -p $HOME/boost \
     && tar -xzf "$BOOST_ARCHIVE.tar.gz" -C $HOME/boost --strip-components=1 \
     && cd $HOME/boost \
     && ./bootstrap.sh --show-libraries \
-    && ./bootstrap.sh --prefix=/usr/local \
-    #&& ./b2 --with=all install \
+    && ./bootstrap.sh \
+      --prefix=/usr/local \
+      #--icu_root= \
+    && ./b2 --with=all install \
     && ln -s /usr/local/include/$BOOST_ARCHIVE/ /usr/local/include/boost \
     && rm -rf $HOME/boost
     #&& ls -al /root/www/app/src/include/boost
