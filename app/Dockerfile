@@ -30,8 +30,10 @@ RUN echo "\
     && clangDeps='\
         clang-4.0 \
         lldb-4.0' \
-    && DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends --no-install-suggests \
         $clangDeps \
+    && ln -s /usr/bin/clang-4.0 /usr/bin/clang \
+    && ln -s /usr/bin/clang++-4.0 /usr/bin/clang++ \
     && rm -rf /var/lib/apt/lists/* \
 
     && curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE" -o "$BOOST_ARCHIVE" \
