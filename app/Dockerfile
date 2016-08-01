@@ -27,37 +27,37 @@ RUN echo "\
         $buildDeps \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         libtcmalloc-minimal4 \
-    && ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so
-RUN curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
+    && ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so \
+    && curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && clangDeps='\
         clang-4.0 \
         lldb-4.0' \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends --no-install-suggests \
         $clangDeps \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
 
-RUN curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE" -o "$BOOST_ARCHIVE" \
+    && curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE" -o "$BOOST_ARCHIVE" \
     && mkdir -p $HOME/boost /root/www/app/src/include/boost \
     && tar -xzf "$BOOST_ARCHIVE" -C $HOME/boost --strip-components=1 \
     && cp -ar $HOME/boost/boost/ /root/www/app/src/include \
     && ls -al /root/www/app/src/include/boost \
-    && rm -rf "$BOOST_ARCHIVE"* $HOME/boost
+    && rm -rf "$BOOST_ARCHIVE"* $HOME/boost \
 
-RUN curl -fSL "https://github.com/ipkn/crow/archive/master.tar.gz" -o "crow.tar.gz" \
+    && curl -fSL "https://github.com/ipkn/crow/archive/master.tar.gz" -o "crow.tar.gz" \
     && mkdir -p $HOME/crow /root/www/app/src/include/amalgamate \
     && tar -xzf "crow.tar.gz" -C $HOME/crow --strip-components=1 \
     && cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
     && ls -al /root/www/app/src/include/amalgamate \
-    && rm -rf "crow.tar.gz"* $HOME/crow /root/www/app/src/include/amalgamate/merge_all.py
+    && rm -rf "crow.tar.gz"* $HOME/crow /root/www/app/src/include/amalgamate/merge_all.py \
 
-RUN curl -fSL "https://github.com/no1msd/mstch/archive/master.zip" -o "mstch.tar.gz"
-RUN mkdir -p $HOME/mstch /root/www/app/src/include/mstch
-RUN tar -xzf "mstch.tar.gz" -C $HOME/mstch --strip-components=1
-RUN cp -ar $HOME/mstch/include/mstch/ /root/www/app/src/include
-RUN ls -al /root/www/app/src/include/mstch
-RUN rm -rf "mstch.tar.gz"* $HOME/mstch
+    && curl -fSL "https://github.com/no1msd/mstch/archive/master.tar.gz" -o "mstch.tar.gz" \
+    && mkdir -p $HOME/mstch /root/www/app/src/include/mstch \
+    && tar -xzf "mstch.tar.gz" -C $HOME/mstch --strip-components=1 \
+    && cp -ar $HOME/mstch/include/mstch/ /root/www/app/src/include \
+    && ls -al /root/www/app/src/include/mstch \
+    && rm -rf "mstch.tar.gz"* $HOME/mstch \
 
-RUN cd /root/www/app \
+    && cd /root/www/app \
     && mkdir -p /root/www/app/bin \
     && make \
     && chmod +x /root/www/app/bin/main
