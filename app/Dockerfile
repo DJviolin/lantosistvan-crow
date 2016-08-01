@@ -76,9 +76,11 @@ RUN boostDeps='\
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         $boostDeps \
     && cd $HOME/boost \
-    && ./bootstrap.sh \
+    && ./bootstrap.sh --show-libraries \
+    && ./bootstrap.sh --prefix=/usr/local \
     && ./b2 install \
-    && ln -s /usr/local/include/$BOOST_ARCHIVE/ /usr/local/include/boost
+    && ln -s /usr/local/include/$BOOST_ARCHIVE/ /usr/local/include/boost \
+    && rm -rf $HOME/boost
     #&& ls -al /root/www/app/src/include/boost
 RUN cd /root/www/app \
     && make \
