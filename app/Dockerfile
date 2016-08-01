@@ -79,7 +79,8 @@ RUN mkdir -p /root/www/app/bin \
     #&& cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
     && cp -a $HOME/crow/include/* /root/www/app/src/include/crow \
     && cp -a $HOME/mstch/include/mstch/* /root/www/app/src/include/mstch
-RUN curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE.tar.gz" -o "$BOOST_ARCHIVE.tar.gz" \
+RUN mkdir -p $HOME/boost \
+    && curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE.tar.gz" -o "$BOOST_ARCHIVE.tar.gz" \
     && tar -xzf "$BOOST_ARCHIVE.tar.gz" -C $HOME/boost --strip-components=1 \
     && cd $HOME/boost \
     && ./bootstrap.sh --show-libraries \
