@@ -41,27 +41,30 @@ RUN echo "\
     && curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE" -o "$BOOST_ARCHIVE" \
     && mkdir -p $HOME/boost /root/www/app/src/include/boost \
     && tar -xzf "$BOOST_ARCHIVE" -C $HOME/boost --strip-components=1 \
-    && cp -ar $HOME/boost/boost/ /root/www/app/src/include \
-    && rm -rf "$BOOST_ARCHIVE"* $HOME/boost \
-    && ls -al /root/www/app/src/include/boost \
+    #&& cp -ar $HOME/boost/boost/ /root/www/app/src/include \
+    #&& rm -rf "$BOOST_ARCHIVE"* $HOME/boost \
+    #&& ls -al /root/www/app/src/include/boost \
 
     && curl -fSL "https://github.com/ipkn/crow/archive/master.tar.gz" -o "crow.tar.gz" \
     && mkdir -p $HOME/crow /root/www/app/src/include/amalgamate \
     && tar -xzf "crow.tar.gz" -C $HOME/crow --strip-components=1 \
-    && cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
-    && rm -rf "crow.tar.gz"* $HOME/crow /root/www/app/src/include/amalgamate/merge_all.py \
-    && ls -al /root/www/app/src/include/amalgamate \
+    #&& cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
+    #&& rm -rf "crow.tar.gz"* $HOME/crow /root/www/app/src/include/amalgamate/merge_all.py \
+    #&& ls -al /root/www/app/src/include/amalgamate \
 
     && curl -fSL "https://github.com/no1msd/mstch/archive/master.tar.gz" -o "mstch.tar.gz" \
     && mkdir -p $HOME/mstch /root/www/app/src/include/mstch \
     && tar -xzf "mstch.tar.gz" -C $HOME/mstch --strip-components=1 \
-    && cp -ar $HOME/mstch/include/mstch/ /root/www/app/src/include \
-    && rm -rf "mstch.tar.gz"* $HOME/mstch \
-    && ls -al /root/www/app/src/include/mstch
+    #&& cp -ar $HOME/mstch/include/mstch/ /root/www/app/src/include \
+    #&& rm -rf "mstch.tar.gz"* $HOME/mstch \
+    #&& ls -al /root/www/app/src/include/mstch
 
 COPY . /root/www/app
 
 RUN mkdir -p /root/www/app/bin \
+    && cp -ar $HOME/boost/boost/ /root/www/app/src/include \
+    && cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
+    && cp -ar $HOME/mstch/include/mstch/ /root/www/app/src/include \
     && cd /root/www/app \
     && ls -al /root/www/app \
     && ls -al /root/www/src \
