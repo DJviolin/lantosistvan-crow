@@ -66,8 +66,6 @@ RUN mkdir -p /root/www/app/bin \
     && cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
     && cp -ar $HOME/mstch/include/mstch/ /root/www/app/src/include \
     && cd /root/www/app \
-    && ls -al /root/www/app \
-    && ls -al /root/www/src \
     && make \
     && chmod +x /root/www/app/bin/main
 
