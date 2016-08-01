@@ -63,6 +63,7 @@ COPY . /root/www/app
 
 RUN mkdir -p /root/www/app/bin \
     && mkdir -p /root/www/app/src/include/{boost,crow,mstch}  \
+    && ls -al /root/www/app/src/include \
     && cp -a $HOME/boost/boost/* /root/www/app/src/include/boost \
     #&& cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
     && cp -a $HOME/crow/include/* /root/www/app/src/include/crow \
