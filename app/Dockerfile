@@ -34,6 +34,8 @@ RUN echo "\
         $clangDeps \
     && ln -s /usr/bin/clang-4.0 /usr/bin/clang \
     && ln -s /usr/bin/clang++-4.0 /usr/bin/clang++ \
+    && clang --version \
+    && clang++ --version \
     && rm -rf /var/lib/apt/lists/* \
 
     && curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE" -o "$BOOST_ARCHIVE" \
