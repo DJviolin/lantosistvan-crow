@@ -38,32 +38,6 @@ else
   ls -al $REPO_DIR
 fi
 
-echo -e "\nCreating additional files for the stack:"
-
-echo -e "\nCreating: $REPO_DIR/app/Makefile\n"
-cat <<EOF > $REPO_DIR/app/Makefile
-CC := clang++
-CFLAGS := -g -Wall -std=c++1z -Isrc/include
-BINARY := -Wextra -Wformat -Werror -pedantic
-SILENCE := -Wno-unused-parameter -Wno-pessimizing-move -Wno-inconsistent-missing-override -Wno-comment
-OPTIMIZE := -Ofast -march=native -ffast-math
-BOOST := -lboost_system -lboost_thread
-
-SRC := \$(wildcard src/*.cpp)
-BIN := \$(patsubst src/%.cpp,bin/%,\$(SRC))
-
-all: clean cpp
-
-clean:
-  mkdir -p ./bin
-  rm -f bin/*
-
-cpp: \$(BIN)
-\$(BIN): bin/%: src/%.cpp
-  \$(CC) \$(CFLAGS) \$(BINARY) \$(SILENCE) \$(OPTIMIZE) \$(BOOST) \$^ -o \$@
-EOF
-cat $REPO_DIR/app/Makefile
-
 cd $HOME
 
 echo -e "\n
