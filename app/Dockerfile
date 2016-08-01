@@ -69,7 +69,9 @@ RUN echo "\
     #&& rm -rf "mstch.tar.gz"* $HOME/mstch \
     #&& ls -al /root/www/app/src/include/mstch
 
-COPY . /root/www/app
+RUN mkdir -p $HOME/boost \
+    && curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE.tar.gz" -o "$BOOST_ARCHIVE.tar.gz" \
+    && tar -xzf "$BOOST_ARCHIVE.tar.gz" -C $HOME/boost --strip-components=1
 
 RUN mkdir -p /root/www/app/bin \
              #/root/www/app/src/include/boost \
@@ -80,16 +82,15 @@ RUN mkdir -p /root/www/app/bin \
     #&& cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
     && cp -a $HOME/crow/include/* /root/www/app/src/include/crow \
     && cp -a $HOME/mstch/include/mstch/* /root/www/app/src/include/mstch
-RUN mkdir -p $HOME/boost \
-    && curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE.tar.gz" -o "$BOOST_ARCHIVE.tar.gz" \
-    && tar -xzf "$BOOST_ARCHIVE.tar.gz" -C $HOME/boost --strip-components=1 \
-    && cd $HOME/boost \
+
+COPY . /root/www/app
+
+RUN cd $HOME/boost \
     && ./bootstrap.sh --show-libraries \
     && ./bootstrap.sh \
       --prefix=/usr/local \
       --without-libraries=mpi \
     && ./b2 --with=all install \
-    && ln -s /usr/local/include/$BOOST_ARCHIVE/ /usr/local/include/boost \
     && rm -rf $HOME/boost
     #&& ls -al /root/www/app/src/include/boost
 RUN cd /root/www/app \
