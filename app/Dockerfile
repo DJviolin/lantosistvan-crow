@@ -70,7 +70,12 @@ RUN mkdir -p /root/www/app/bin \
     #&& cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
     && cp -a $HOME/crow/include/* /root/www/app/src/include/crow \
     && cp -a $HOME/mstch/include/mstch/* /root/www/app/src/include/mstch
-RUN ls -al /root/www/app/src/include/boost \
+RUN boostDeps='\
+        libicu-dev \
+        libbz2-dev' \
+    && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
+        $boostDeps \
+    && ls -al /root/www/app/src/include/boost \
     && cd /root/www/app \
     && make \
     && chmod +x /root/www/app/bin/main
