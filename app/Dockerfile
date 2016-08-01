@@ -27,6 +27,10 @@ RUN echo "\
         libtcmalloc-minimal4 \
     && ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so \
     && boostDeps='\
+        gcc \
+        g++ \
+        python-dev \
+        autotools-dev \
         libicu-dev \
         libbz2-dev' \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
@@ -80,7 +84,7 @@ RUN curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSI
     && cd $HOME/boost \
     && ./bootstrap.sh --show-libraries \
     && ./bootstrap.sh --prefix=/usr/local \
-    && ./b2 install \
+    && ./b2 --with=all install \
     && ln -s /usr/local/include/$BOOST_ARCHIVE/ /usr/local/include/boost \
     && rm -rf $HOME/boost
     #&& ls -al /root/www/app/src/include/boost
