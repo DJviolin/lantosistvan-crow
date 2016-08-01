@@ -54,7 +54,7 @@ RUN echo "\
 
     && curl -fSL "https://github.com/no1msd/mstch/archive/master.tar.gz" -o "mstch.tar.gz" \
     && mkdir -p $HOME/mstch /root/www/app/src/include/mstch \
-    && tar -xzf "mstch.tar.gz" -C $HOME/mstch --strip-components=1 \
+    && tar -xzf "mstch.tar.gz" -C $HOME/mstch --strip-components=1
     #&& cp -ar $HOME/mstch/include/mstch/ /root/www/app/src/include \
     #&& rm -rf "mstch.tar.gz"* $HOME/mstch \
     #&& ls -al /root/www/app/src/include/mstch
@@ -62,6 +62,7 @@ RUN echo "\
 COPY . /root/www/app
 
 RUN mkdir -p /root/www/app/bin \
+    && mkdir -p /root/www/app/src/include  \
     && cp -ar $HOME/boost/boost/ /root/www/app/src/include \
     && cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
     && cp -ar $HOME/mstch/include/mstch/ /root/www/app/src/include \
