@@ -63,10 +63,10 @@ COPY . /root/www/app
 
 RUN mkdir -p /root/www/app/bin \
     && mkdir -p /root/www/app/src/include/{boost,crow,mstch}  \
-    && cp -ar $HOME/boost/boost/* /root/www/app/src/include/boost \
+    && cp -a $HOME/boost/boost/* /root/www/app/src/include/boost \
     #&& cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
-    && cp -ar $HOME/crow/include/* /root/www/app/src/include/crow \
-    && cp -ar $HOME/mstch/include/mstch/* /root/www/app/src/include/mstch \
+    && cp -a $HOME/crow/include/* /root/www/app/src/include/crow \
+    && cp -a $HOME/mstch/include/mstch/* /root/www/app/src/include/mstch \
     && cd /root/www/app \
     && make \
     && chmod +x /root/www/app/bin/main
