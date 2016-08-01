@@ -1,6 +1,3 @@
-//#define NOGDI  // Windows
-//#define WIN32_LEAN_AND_MEAN
-
 //#include <amalgamate/crow_all.h>
 #include <crow/crow.h>
 
