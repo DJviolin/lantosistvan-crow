@@ -64,6 +64,7 @@ COPY . /root/www/app
 RUN mkdir -p /root/www/app/bin \
     && cd /root/www/app \
     && ls -al /root/www/app \
+    && ls -al /root/www/src \
     && make \
     && chmod +x /root/www/app/bin/main
 
