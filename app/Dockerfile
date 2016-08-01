@@ -5,7 +5,7 @@ LABEL com.lantosistvan.version="1.0.0" \
       com.lantosistvan.description="App"
 
 ENV BOOST_VERSION="1.61.0" \
-    BOOST_ARCHIVE="boost_1_61_0.tar.gz"
+    BOOST_ARCHIVE="boost_1_61_0"
 
 # gcc libc6-dev
 RUN echo "\
@@ -38,9 +38,9 @@ RUN echo "\
     && clang++ --version \
     && rm -rf /var/lib/apt/lists/* \
 
-    && curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE" -o "$BOOST_ARCHIVE" \
+    && curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE.tar.gz" -o "$BOOST_ARCHIVE.tar.gz" \
     && mkdir -p $HOME/boost /root/www/app/src/include/boost \
-    && tar -xzf "$BOOST_ARCHIVE" -C $HOME/boost --strip-components=1 \
+    && tar -xzf "$BOOST_ARCHIVE.tar.gz" -C $HOME/boost --strip-components=1 \
     #&& cp -ar $HOME/boost/boost/ /root/www/app/src/include \
     #&& rm -rf "$BOOST_ARCHIVE"* $HOME/boost \
     #&& ls -al /root/www/app/src/include/boost \
@@ -66,7 +66,7 @@ RUN mkdir -p /root/www/app/bin \
              /root/www/app/src/include/crow \
              /root/www/app/src/include/mstch  \
     && ls -al /root/www/app/src/include \
-    && cp -a $HOME/boost/boost/* /root/www/app/src/include/boost \
+    #&& cp -a $HOME/boost/boost/* /root/www/app/src/include/boost \
     #&& cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
     && cp -a $HOME/crow/include/* /root/www/app/src/include/crow \
     && cp -a $HOME/mstch/include/mstch/* /root/www/app/src/include/mstch
@@ -75,7 +75,11 @@ RUN boostDeps='\
         libbz2-dev' \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         $boostDeps \
-    && ls -al /root/www/app/src/include/boost
+    && cd $HOME/boost \
+    && ./bootstrap.sh \
+    && ./b2 install \
+    && ln -s /usr/local/include/$BOOST_ARCHIVE/ /usr/local/include/boost
+    #&& ls -al /root/www/app/src/include/boost
 RUN cd /root/www/app \
     && make \
     && chmod +x /root/www/app/bin/main
