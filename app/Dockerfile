@@ -26,6 +26,11 @@ RUN echo "\
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         libtcmalloc-minimal4 \
     && ln -s /usr/lib/libtcmalloc_minimal.so.4 /usr/lib/libtcmalloc_minimal.so \
+    && boostDeps='\
+        libicu-dev \
+        libbz2-dev' \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
+        $boostDeps \
     && curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && clangDeps='\
         clang-4.0 \
@@ -38,9 +43,9 @@ RUN echo "\
     && clang++ --version \
     && rm -rf /var/lib/apt/lists/* \
 
-    && curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE.tar.gz" -o "$BOOST_ARCHIVE.tar.gz" \
-    && mkdir -p $HOME/boost /root/www/app/src/include/boost \
-    && tar -xzf "$BOOST_ARCHIVE.tar.gz" -C $HOME/boost --strip-components=1 \
+    ##&& curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE.tar.gz" -o "$BOOST_ARCHIVE.tar.gz" \
+    ##&& mkdir -p $HOME/boost /root/www/app/src/include/boost \
+    ##&& tar -xzf "$BOOST_ARCHIVE.tar.gz" -C $HOME/boost --strip-components=1 \
     #&& cp -ar $HOME/boost/boost/ /root/www/app/src/include \
     #&& rm -rf "$BOOST_ARCHIVE"* $HOME/boost \
     #&& ls -al /root/www/app/src/include/boost \
@@ -62,7 +67,7 @@ RUN echo "\
 COPY . /root/www/app
 
 RUN mkdir -p /root/www/app/bin \
-             /root/www/app/src/include/boost \
+             #/root/www/app/src/include/boost \
              /root/www/app/src/include/crow \
              /root/www/app/src/include/mstch  \
     && ls -al /root/www/app/src/include \
@@ -70,11 +75,8 @@ RUN mkdir -p /root/www/app/bin \
     #&& cp -ar $HOME/crow/amalgamate/ /root/www/app/src/include \
     && cp -a $HOME/crow/include/* /root/www/app/src/include/crow \
     && cp -a $HOME/mstch/include/mstch/* /root/www/app/src/include/mstch
-RUN boostDeps='\
-        libicu-dev \
-        libbz2-dev' \
-    && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
-        $boostDeps \
+RUN curl -fSL "http://downloads.sourceforge.net/project/boost/boost/$BOOST_VERSION/$BOOST_ARCHIVE.tar.gz" -o "$BOOST_ARCHIVE.tar.gz" \
+    && tar -xzf "$BOOST_ARCHIVE.tar.gz" -C $HOME/boost --strip-components=1 \
     && cd $HOME/boost \
     && ./bootstrap.sh --show-libraries \
     && ./bootstrap.sh --prefix=/usr/local \
