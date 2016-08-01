@@ -61,10 +61,10 @@ RUN buildDeps='\
     && tar -xf "njs.tar.gz" -C /usr/src/nginx-modules/njs --strip-components=1 \
     && rm "njs.tar.gz"* \
     # afcgi
-    && curl -fSL "https://github.com/rsms/afcgi/archive/master.tar.gz" -o "afcgi.tar.gz" \
-    && mkdir -p /usr/src/nginx-modules/afcgi \
-    && tar -xf "afcgi.tar.gz" -C /usr/src/nginx-modules/afcgi --strip-components=1 \
-    && rm "afcgi.tar.gz"* \
+    #&& curl -fSL "https://github.com/rsms/afcgi/archive/master.tar.gz" -o "afcgi.tar.gz" \
+    #&& mkdir -p /usr/src/nginx-modules/afcgi \
+    #&& tar -xf "afcgi.tar.gz" -C /usr/src/nginx-modules/afcgi --strip-components=1 \
+    #&& rm "afcgi.tar.gz"* \
 
     # Configuring the build
     && cd /usr/src/nginx \
@@ -125,7 +125,7 @@ RUN buildDeps='\
         --add-module=/usr/src/nginx-modules/ngx_cache_purge \
         --add-module=/usr/src/nginx-modules/ngx_srcache \
         --add-module=/usr/src/nginx-modules/njs*/nginx \
-        --add-module=/usr/src/nginx-modules/afcgi \
+        #--add-module=/usr/src/nginx-modules/afcgi \
     && echo "Configuration done!" \
     && make -C /usr/src/nginx \
     && make -C /usr/src/nginx install \
