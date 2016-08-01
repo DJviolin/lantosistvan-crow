@@ -7,8 +7,6 @@ LABEL com.lantosistvan.version="1.0.0" \
 ENV BOOST_VERSION="1.61.0" \
     BOOST_ARCHIVE="boost_1_61_0.tar.gz"
 
-COPY . /root/www/app
-
 # gcc libc6-dev
 RUN echo "\
     deb http://apt.llvm.org/jessie/ llvm-toolchain-jessie main\n\
@@ -58,8 +56,11 @@ RUN echo "\
     && rm -rf "mstch.tar.gz"* $HOME/mstch \
 
     && cd /root/www/app \
-    && mkdir -p /root/www/app/bin \
-    && make \
+    && mkdir -p /root/www/app/bin
+
+COPY . /root/www/app
+
+RUN make \
     && chmod +x /root/www/app/bin/main
 
     && apt-get purge -y --auto-remove \
