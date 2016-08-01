@@ -55,3 +55,75 @@ Further information:
 
    - Boost.Build documentation:
      http://www.boost.org/build/doc/html/index.html
+
+Performing configuration checks
+
+    - 32-bit                   : no
+    - 64-bit                   : yes
+    - arm                      : no
+    - mips1                    : no
+    - power                    : no
+    - sparc                    : no
+    - x86                      : yes
+    - symlinks supported       : yes
+    - C++11 mutex              : no
+    - lockfree boost::atomic_flag : yes
+    - has_icu builds           : yes
+warning: Graph library does not contain MPI-based parallel components.
+note: to enable them, add "using mpi ;" to your user-config.jam
+    - zlib                     : no
+    - iconv (libc)             : yes
+    - icu                      : yes
+    - compiler-supports-visibility : yes
+    - compiler-supports-ssse3  : yes
+    - compiler-supports-avx2   : yes
+    - gcc visibility           : yes
+    - long double support      : yes
+warning: skipping optional Message Passing Interface (MPI) library.
+note: to enable MPI support, add "using mpi ;" to user-config.jam.
+note: to suppress this message, pass "--without-mpi" to bjam.
+note: otherwise, you can safely ignore this message.
+    - zlib                     : no
+
+Component configuration:
+
+    - atomic                   : building
+    - chrono                   : building
+    - container                : building
+    - context                  : building
+    - coroutine                : building
+    - coroutine2               : building
+    - date_time                : building
+    - exception                : building
+    - filesystem               : building
+    - graph                    : building
+    - graph_parallel           : building
+    - iostreams                : building
+    - locale                   : building
+    - log                      : building
+    - math                     : building
+    - metaparse                : building
+    - mpi                      : building
+    - program_options          : building
+    - python                   : building
+    - random                   : building
+    - regex                    : building
+    - serialization            : building
+    - signals                  : building
+    - system                   : building
+    - test                     : building
+    - thread                   : building
+    - timer                    : building
+    - type_erasure             : building
+    - wave                     : building
+
+...patience...
+...patience...
+...patience...
+...patience...
+...patience...
+...found 36832 targets...
+...updating 14277 targets...
+common.mkdir /usr/local/include/boost
+common.copy /usr/local/include/boost/ratio.hpp
+common.copy /usr/local/include/boost/regex_fwd.hpp

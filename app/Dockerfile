@@ -32,7 +32,8 @@ RUN echo "\
         python-dev \
         autotools-dev \
         libicu-dev \
-        libbz2-dev' \
+        libbz2-dev \
+        zlib1g-dev' \
     && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         $boostDeps \
     && curl http://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
@@ -86,7 +87,7 @@ RUN mkdir -p $HOME/boost \
     && ./bootstrap.sh --show-libraries \
     && ./bootstrap.sh \
       --prefix=/usr/local \
-      #--icu_root= \
+      --without-libraries=mpi \
     && ./b2 --with=all install \
     && ln -s /usr/local/include/$BOOST_ARCHIVE/ /usr/local/include/boost \
     && rm -rf $HOME/boost
