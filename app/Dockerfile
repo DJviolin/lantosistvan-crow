@@ -75,8 +75,8 @@ RUN boostDeps='\
         libbz2-dev' \
     && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
         $boostDeps \
-    && ls -al /root/www/app/src/include/boost \
-    && cd /root/www/app \
+    && ls -al /root/www/app/src/include/boost
+RUN cd /root/www/app \
     && make \
     && chmod +x /root/www/app/bin/main
 
